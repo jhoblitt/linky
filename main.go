@@ -26,7 +26,10 @@ func linktest(path string, cycles int) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		f.Close()
+		err = f.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		// hard link file
 		err = os.Link(orig_file, link_file)
