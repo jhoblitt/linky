@@ -26,6 +26,9 @@ func linktest(path string, cycles int) {
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		// write something to the original file
+		f.WriteString(orig_file)
 		err = f.Close()
 		if err != nil {
 			log.Fatal(err)
@@ -33,6 +36,16 @@ func linktest(path string, cycles int) {
 
 		// hard link file
 		err = os.Link(orig_file, link_file)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// stat both files
+		_, err = os.Stat(orig_file)
+		if err != nil {
+			log.Fatal(err)
+		}
+		_, err = os.Stat(link_file)
 		if err != nil {
 			log.Fatal(err)
 		}
