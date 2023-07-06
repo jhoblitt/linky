@@ -24,36 +24,42 @@ func linktest(path string, cycles int) {
 		// Create a file
 		f, err := os.Create(orig_file)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+			continue
 		}
 
 		// write something to the original file
 		f.WriteString(orig_file)
 		err = f.Close()
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+			continue
 		}
 
 		// hard link file
 		err = os.Link(orig_file, link_file)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+			continue
 		}
 
 		// stat both files
 		_, err = os.Stat(orig_file)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+			continue
 		}
 		_, err = os.Stat(link_file)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+			continue
 		}
 
 		// remove original file
 		err = os.Remove(orig_file)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+			continue
 		}
 	}
 }
